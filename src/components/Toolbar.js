@@ -1,32 +1,27 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function Toolbar({ filters, selected, onSelectFilter }) {
-  return (
-    <div className="Toolbar">
-      {filters.map((filter) => {
-        return (
-          <div
-            key={filter}
-            className={filter === selected ? "Toolbar-button Toolbar-button-selected" : "Toolbar-button"}
-            onClick={() => onSelectFilter(filter)}
-          >
-              {filter}
-          </div>
-        );
-      })}
-    </div>
-  );
+function Toolbar({ filters, selected, onSelectFilter }) {
+	return (
+		<div className="toolbar">
+			{
+				filters.map((filter, idx) => 
+					<button 
+						className={filter === selected ? "filter-btn selected" : "filter-btn"}
+						key={filter} 
+						onClick={() => onSelectFilter(filter)} 
+					>
+						{filter}
+					</button>
+				)
+			}
+		</div>
+	)
 }
 
 Toolbar.propTypes = {
-    filters: PropTypes.array,
-    selected: PropTypes.string,
-    onSelectFilter: PropTypes.func,
+	filters: PropTypes.arrayOf(PropTypes.string).isRequired,
+	selected: PropTypes.string.isRequired,
+	onSelectFilter: PropTypes.func.isRequired
 }
 
-Toolbar.defaultProps = {
-  filters: ['All'],
-  selected: 'All',
-  onSelectFilter: () => {},
-};
+export default Toolbar;

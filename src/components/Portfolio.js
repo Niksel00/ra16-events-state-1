@@ -1,96 +1,40 @@
-import React from 'react';
-import ProjectList from './ProjectList';
-import Toolbar from './Toolbar';
+import { useState } from "react";
+import PropTypes from 'prop-types';
+import Toolbar from "./Toolbar";
+import ProjectList from "./ProjectList";
 
-const projects = [{
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/mon.jpg",
-  category: "Business Cards"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/200.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/emi_haze.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/codystretch.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/Triangle_003.jpg",
-  category: "Business Cards"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/place200x290.png",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/200.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/transmission.jpg",
-  category: "Business Cards"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/place200x290_1.png",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/place200x290_2.png",
-  category: "Flayers"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/the_ninetys_brand.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/dia.jpg",
-  category: "Business Cards"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/Triangle_350x197.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/emi_haze.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/transmission.jpg",
-  category: "Business Cards"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/Triangle_350x197_1.jpg",
-  category: "Websites"
-}, {
-  img: "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/events-state/filter/img/place200x290_3.png",
-  category: "Flayers"
-}];
+function Portfolio({ projects }) {
+	const [projectList, setProjectList] = useState(projects);
+	const [selected, setSelectedFilter] = useState("All");
 
-const filters = ["All", "Websites", "Flayers", "Business Cards"];
-const selected = 'All';
+	const handleSelectFilter = (filter) => {
+		const newFilter = filter;
+		const newProjectList = projects.filter(project => project.category === filter || filter === "All");
+		setSelectedFilter(newFilter);
+		setProjectList(newProjectList);
+	};
 
-export default class Portfolio extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      filters: filters,
-      selected: selected,
-    };
-    this.projects = projects;
-
-    this.onSelectFilter = this.onSelectFilter.bind(this);
-  }
-
-  onSelectFilter(filter) {
-    this.setState(prevState => (
-      {
-        filters: filters,
-        selected: filter,
-      }
-    ));
-  }
-
-  render() {
-    return (
-      <div className="Portfolio">
-        <Toolbar
-          filters={this.state.filters}
-          selected={this.state.selected}
-          onSelectFilter={this.onSelectFilter}
-        />
-        <ProjectList
-          projects={this.state.selected === 'All' ? this.projects : this.projects.filter((project) => project.category === this.state.selected)}
-        />
-      </div>
-    );
-  }
+	return (
+		<>
+			<Toolbar 
+				filters={["All", "Websites", "Flayers", "Business Cards"]}
+				selected={selected}
+				onSelectFilter={handleSelectFilter}
+			/>
+			<ProjectList 
+				projects={projectList}
+			/>
+		</>
+	)
 }
+
+Portfolio.propTypes = {
+	projects: PropTypes.arrayOf(
+		PropTypes.shape({
+			img: PropTypes.string,
+			category: PropTypes.string
+		})
+	).isRequired
+}
+
+export default Portfolio;

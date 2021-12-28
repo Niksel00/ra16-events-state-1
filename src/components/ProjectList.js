@@ -1,20 +1,29 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function ProjectList({ projects }) {
-  return (
-    <div className="ProjectList">
-      {projects.map((project) => {
-        return (
-          <div key={Math.random()}>
-            <img src={project.img} alt={project.category} />
-          </div>
-        );
-      })}
-    </div>
-  );
+function ProjectList({ projects }) {
+	return (
+		<div className="project-list">
+			{
+				projects.map((project, idx) => 
+					<img 
+						className="project-img" 
+						key={idx}
+						src={project.img}
+						alt="project-img"
+					/>
+				)
+			}
+		</div>
+	)
 }
 
 ProjectList.propTypes = {
-  projects: PropTypes.array,
+	projects: PropTypes.arrayOf(
+		PropTypes.shape({
+			img: PropTypes.string,
+			category: PropTypes.string
+		})
+	).isRequired
 }
+
+export default ProjectList;

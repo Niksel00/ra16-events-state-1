@@ -1,35 +1,40 @@
-.Portfolio {
-  width: 630px;
-  margin: 0 auto;
+* {
+	margin: 0;
+  padding: 0;
 }
 
-.ProjectList {
-  width: 630px;
-  height: 1200px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-content: flex-start;
+body, html {
+  font-family: muli;
 }
 
-.ProjectList img {
-  width: 200px;
-  margin: 5px;
+.portfolio {
+	margin: 20px auto;
+	width: 70%;
 }
 
-.Toolbar {
-  display: flex;
-  margin: 5px;
+.toolbar {
+	margin-bottom: 15px;
 }
 
-.Toolbar-button {
-  padding: 5px 10px;
-  margin-right: 5px;
-  border: 1px solid #000000;
-  cursor: pointer;
+.filter-btn {
+	margin-right: 5px;
+	padding: 5px 8px;
+	background-color: #ffffff;
+	outline: none;
+	border: 1px solid gray;
 }
 
-.Toolbar-button-selected {
-  background-color: #000000;
-  color: #ffffff;
+.selected {
+	background-color: gray;
+	color: #fff;
+}
+
+.project-list {
+	column-count: 3;
+}
+
+.project-img {
+	width: 100%;
+	margin-bottom: 10px;
+
 }

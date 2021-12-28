@@ -1,10 +1,11 @@
 import './App.css';
 import Portfolio from './components/Portfolio';
+import data from './data';
 
-function App() {
+export default function App() {
   return (
-    <Portfolio />
+    <div className="portfolio">
+      <Portfolio projects={data}/>
+    </div>
   );
 }
-
-export default App;
